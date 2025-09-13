@@ -1,1 +1,21 @@
 /*  your css code here. If applicable */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panel {
+    width: 200px; /* Adjust as needed */
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.panel.active {
+    transform: scale(1.1); /* Expand effect */
+}
+
+.img-text {
+    text-align: center;
+    margin-top: 10px;
+}
