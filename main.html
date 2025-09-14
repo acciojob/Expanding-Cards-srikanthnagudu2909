@@ -13,6 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background: #111;
     }
 
     .container {
@@ -23,7 +24,7 @@
     }
 
     .panel {
-      flex: 1;
+      flex: 1; /* default shrunk state */
       border-radius: 25px;
       background-size: cover;
       background-position: center;
@@ -37,14 +38,17 @@
       font-size: 1.2rem;
       font-weight: bold;
       text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+      overflow: hidden;
     }
 
+    /* Text inside panel */
     .panel .img-text {
       margin-bottom: 15px;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
 
+    /* Active (expanded) panel */
     .panel.active {
       flex: 4;
     }
@@ -59,26 +63,11 @@
 
   <script>
     const images = [
-      {
-        url: "https://images.unsplash.com/photo-1558979158-65a1eaa08691?auto=format&fit=crop&w=1350&q=80",
-        text: "Explore the world"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?auto=format&fit=crop&w=1350&q=80",
-        text: "Wild Forest"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1353&q=80",
-        text: "City on Winter"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1350&q=80",
-        text: "Mountain Cloud"
-      },
-      {
-        url: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80",
-        text: "Sunny Beach"
-      }
+      { url: "https://images.unsplash.com/photo-1558979158-65a1eaa08691?auto=format&fit=crop&w=1350&q=80", text: "Explore the world" },
+      { url: "https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?auto=format&fit=crop&w=1350&q=80", text: "Wild Forest" },
+      { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1353&q=80", text: "City on Winter" },
+      { url: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1350&q=80", text: "Mountain Cloud" },
+      { url: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80", text: "Sunny Beach" }
     ];
 
     const container = document.querySelector(".container");
@@ -94,7 +83,7 @@
       div.classList.add("panel");
       div.id = `panel-${index + 1}`;
       if (index === 0) {
-        div.classList.add("active");
+        div.classList.add("active"); // First one active by default
       }
       div.style.backgroundImage = `url(${url})`;
 
