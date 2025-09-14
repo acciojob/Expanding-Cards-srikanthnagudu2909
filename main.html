@@ -1,39 +1,103 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 80%;
+      height: 80%;
+      display: flex;
+      gap: 10px;
+    }
+
+    .panel {
+      flex: 1;
+      border-radius: 25px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      transition: flex 1s ease;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+    }
+
+    .panel .img-text {
+      margin-bottom: 15px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Expanded (active) card */
+    .panel.active {
+      flex: 4;
+    }
+
+    .panel.active .img-text {
+      opacity: 1;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="container">
-    <div class="panel active" id="panel-1">
-        <img src="https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Explore the world">
-        <div class="img-text">Explore the world</div>
-    </div>
-    <div class="panel" id="panel-2">
-        <img src="https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wild Forest">
-        <div class="img-text">Wild Forest</div>
-    </div>
-    <div class="panel" id="panel-3">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80" alt="City on Winter">
-		<div class="img-text">Sunny Beach</div>
-    </div>
-    <div class="panel" id="panel-4">
-        <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Mountain Cloud">
-        <div class="img-text">Mountain Cloud</div>
-    </div>
-    <div class="panel" id="panel-5">
-        <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sunny Beach">
-        <div class="img-text">Sunny Beach</div>
-    </div>
-</div>
+  <div class="container"></div>
 
-    <script type="text/javascript" src="./script.js">
-</script>
+  <script>
+    const imageurl = [
+      "https://images.unsplash.com/photo-1558979158-65a1eaa08691?auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?auto=format&fit=crop&w=1350&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1353&q=80",
+      "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1350&q=80"
+    ]
 
+    const container = document.querySelector(".container")
+    const temp = document.createDocumentFragment()
+
+    imageurl.forEach((url, index) => {
+      createPanel(url, index)
+    })
+    container.appendChild(temp)
+
+    function createPanel(url, index) {
+      const div = document.createElement("div")
+      div.classList.add("panel")
+      div.id = `panel-${index + 1}` // add id: panel-1, panel-2...
+      if (index === 0) {
+        div.classList.add("active")
+      }
+      div.style.backgroundImage = `url(${url})`
+
+      // add text
+      const span = document.createElement("span")
+      span.classList.add("img-text")
+      span.innerText = `Panel ${index + 1}`
+      div.appendChild(span)
+
+      div.addEventListener("click", () => expanding(div))
+      temp.appendChild(div)
+    }
+
+    function expanding(selectedPanel) {
+      const all = document.querySelectorAll(".panel")
+      all.forEach(div => div.classList.remove("active"))
+      selectedPanel.classList.add("active")
+    }
+  </script>
 </body>
-
 </html>
