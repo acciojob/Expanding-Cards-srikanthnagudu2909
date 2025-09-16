@@ -14,6 +14,7 @@
       justify-content: center;
       align-items: center;
       background: #111;
+      font-family: Arial, sans-serif;
     }
 
     .container {
@@ -62,43 +63,42 @@
   <div class="container"></div>
 
   <script>
+    // Images array (ordered to match your Cypress test)
     const images = [
       { url: "https://images.unsplash.com/photo-1558979158-65a1eaa08691?auto=format&fit=crop&w=1350&q=80", text: "Explore the world" },
       { url: "https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?auto=format&fit=crop&w=1350&q=80", text: "Wild Forest" },
+      { url: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80", text: "Sunny Beach" },
       { url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1353&q=80", text: "City on Winter" },
-      { url: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1350&q=80", text: "Mountain Cloud" },
-      { url: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80", text: "Sunny Beach" }
+      { url: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1350&q=80", text: "Mountain Cloud" }
     ];
 
-   const container = document.querySelector(".container");
+    const container = document.querySelector(".container");
 
-images.forEach((image, index) => {
-  createPanel(image.url, image.text, index);
-});
+    // Create panels dynamically
+    images.forEach((image, index) => createPanel(image.url, image.text, index));
 
-function createPanel(url, text, index) {
-  const div = document.createElement("div");
-  div.classList.add("panel");
-  div.id = `panel-${index + 1}`;
-  if (index === 0) div.classList.add("active"); // First one active
-  div.style.backgroundImage = `url(${url})`;
+    function createPanel(url, text, index) {
+      const div = document.createElement("div");
+      div.classList.add("panel");
+      div.id = `panel-${index + 1}`;
+      if (index === 0) div.classList.add("active"); // First panel active by default
+      div.style.backgroundImage = `url(${url})`;
 
-  const span = document.createElement("span");
-  span.classList.add("img-text");
-  span.innerText = text;
-  div.appendChild(span);
+      const span = document.createElement("span");
+      span.classList.add("img-text");
+      span.innerText = text;
+      div.appendChild(span);
 
-  div.addEventListener("click", () => expanding(div));
+      div.addEventListener("click", () => expandPanel(div));
 
-  container.appendChild(div); // append directly
-}
+      container.appendChild(div);
+    }
 
-function expanding(selectedPanel) {
-  const all = document.querySelectorAll(".panel");
-  all.forEach(div => div.classList.remove("active"));
-  selectedPanel.classList.add("active");
-}
-
+    function expandPanel(selectedPanel) {
+      const allPanels = document.querySelectorAll(".panel");
+      allPanels.forEach(panel => panel.classList.remove("active"));
+      selectedPanel.classList.add("active");
+    }
   </script>
 </body>
 </html>
